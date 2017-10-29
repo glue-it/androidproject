@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProductSearch</string>
+    <string name="SearchButtonText">Search!</string>
+</resources>
