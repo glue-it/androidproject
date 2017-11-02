@@ -20,6 +20,7 @@ import java.util.List;
 
 public class SearchRVAdapter extends RecyclerView.Adapter<SearchRVAdapter.ViewHolder> {
     private List<Product> products;
+    private ViewType viewTypeRequest= null;
 
     public SearchRVAdapter(List<Product> products) {
         this.products = products;
@@ -27,7 +28,7 @@ public class SearchRVAdapter extends RecyclerView.Adapter<SearchRVAdapter.ViewHo
 
     @Override
     public SearchRVAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.searchrow,parent,false);
+        View rowView = LayoutInflater.from(parent.getContext()).inflate(viewType,parent,false);
         return new ViewHolder(rowView);
     }
 
@@ -43,6 +44,23 @@ public class SearchRVAdapter extends RecyclerView.Adapter<SearchRVAdapter.ViewHo
     }
 
 
+    public void updateViewType(ViewType viewType) {
+        this.viewTypeRequest = viewType;
+    }
+
+    @Override
+    public int getItemViewType(int position){
+        int layout = R.layout.searchgrid;;
+        switch (viewTypeRequest){
+            case GRID_VIEW:
+                layout = R.layout.searchgrid;
+                break;
+            case LIST_VIEW:
+                layout = R.layout.searchrow;
+                break;
+        }
+        return layout;
+    }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtProductName;
         TextView txtProductDescription;
